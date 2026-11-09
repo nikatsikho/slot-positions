@@ -1,0 +1,35 @@
+name: Build jar
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 25
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: 9.6.0
+
+      - name: Build
+        run: gradle build --no-daemon
+
+      # Attach the plain .jar to a release so it downloads as a .jar (not a zip).
+      - name: Publish release with the jar
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "build-${{ github.run_number }}" build/libs/slot-potions-*.jar \
+            --title "Slot Potions build ${{ github.run_number }}" \
+            --notes "Put the .jar in your mods folder (needs Minecraft 26.3, Fabric Loader 0.19.5+, Fabric API 0.166.0+26.3)."

@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "slotpotions",
+  "version": "${version}",
+  "name": "Slot Potions",
+  "description": "Every inventory slot (hotbar, inventory, armor, offhand) gives its own potion effect. The number of items in the slot sets the effect level, and it lasts until you take the items out.",
+  "authors": [
+    "You"
+  ],
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.slotpotions.SlotPotions"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*"
+  }
+}
